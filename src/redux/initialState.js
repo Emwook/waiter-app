@@ -2,7 +2,7 @@ const initialState = {
     tables: [
     {
     id: 1,
-    status: 'available',
+    status: 'free',
     bill: 0,
     numPeople: 0,
     maxNumPeople: 1,
@@ -16,7 +16,7 @@ const initialState = {
     },
     {
     id: 3,
-    status: 'available',
+    status: 'cleaning',
     bill: 0,
     numPeople: 0,
     maxNumPeople: 1,

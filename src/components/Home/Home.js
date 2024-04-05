@@ -1,16 +1,14 @@
-import Menu from "../Menu/Menu.js";
-import { Container } from 'react-bootstrap';
-import TablesSection from "../TablesSection/TablesSection.js";
-
+import TableBar from "../TableBar/TableBar";
+import { useSelector } from "react-redux";
+import { getAllTables } from "../../redux/tablesRedux";
 
 const Home = () => {
-    return (
-        <>
-            <Menu/>
-            <Container>
-                <TablesSection/>
-            </Container>
-        </>
+    const tables = useSelector(state => getAllTables(state));
+
+    return(
+        <ul>
+            {tables.map(table => <TableBar id={table.id} status={table.status}></TableBar>)}
+        </ul>
     );
 }
 
