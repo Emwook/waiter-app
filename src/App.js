@@ -6,12 +6,12 @@ import { Container } from 'react-bootstrap';
 import { Routes, Route } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { useEffect } from 'react';
-import { fetchTableData } from './redux/tablesRedux.js';
+import { fetchAllTableData } from './redux/tablesRedux.js';
 
 
 const App = () => {
   const dispatch = useDispatch();
-  useEffect(()=> dispatch(fetchTableData()), [dispatch])
+  useEffect(()=> dispatch(fetchAllTableData()), [dispatch])
   return (
     <main>
       <Menu/>
