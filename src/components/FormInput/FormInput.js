@@ -6,9 +6,10 @@ const FormInput = (props) => {
             <Form.Control 
             type="string" 
             size="sm" 
+            name={props.name}
             id={props.id} 
             className="border-dark text-center" 
-            defaultValue={props.id}
+            defaultValue={props.defaultValue}
             />
         </Col>      
     );

@@ -19,34 +19,44 @@ export const fetchAllTableData = () => {
 };
 
 export const changeDetails = payload => ({type: CHANGE_TABLE_DETAILS, payload});
-export const requestUpdateDetails = (table) => {
+export const requestUpdateDetails = (data) => {
   return (dispatch) => {
     const options = {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
       },
-      body: JSON.stringify(table)
+      body: JSON.stringify(data)
     };
-    fetch('http://localhost:3131/api/tables', options)
-    .then(() => dispatch(changeDetails(table)))
+    const url = `http://localhost:3131/tables/`;
+    console.log(url);
+    fetch(url, options)
+    .then(() => dispatch(changeDetails(data)))
   }
 }
 
 const tablesReducer = (statePart = [], action) => {
-    switch(action.type) {
-      case UPDATE_TABLES:
-        return [...action.payload]
-      case CHANGE_TABLE_DETAILS:
-        return statePart.map(table => (table.id === action.payload.id)
-        ? {...table,
-           status: action.payload.status,
-           numPeople: action.payload.numPeople,
-           maxNumPeople: action.payload.maxNumPeople,
-           bill: action.payload.bill}
-        : table);
-      default:
-        return statePart;
-}}
+  switch(action.type) {
+    case UPDATE_TABLES:
+      return [...action.payload];
+    case CHANGE_TABLE_DETAILS:
+      const { tableId, status, numPeople, maxNumPeople, bill } = action.payload;
+      return statePart.map(table => {
+        if (table.id === tableId) {
+          return {
+            ...table,
+            status: status !== undefined ? status : table.status,
+            numPeople: numPeople !== undefined ? numPeople : table.numPeople,
+            maxNumPeople: maxNumPeople !== undefined ? maxNumPeople : table.maxNumPeople,
+            bill: bill !== undefined ? bill : table.bill
+          };
+        }
+        return table;
+      });
+    default:
+      return statePart;
+  }
+};
+
 
 export default tablesReducer;
