@@ -3,19 +3,12 @@ import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router";
 import {  getTableById } from "../../redux/tablesRedux";
 import FormInput from "../FormInput/FormInput.js";
-import { requestUpdateDetails } from "../../redux/tablesRedux";
+import { requestUpdateDetails, fetchAllTableData } from "../../redux/tablesRedux";
 
 const Details = () => {
-    const { tableId } = useParams();
-    const table = useSelector(state => getTableById(state, tableId));
+    const { id } = useParams();
+    const table = useSelector(state => getTableById(state, id));
     let status, numPeople, maxNumPeople, bill;
-    if(table){
-        status = table.status;
-        numPeople = table.numPeople;
-        maxNumPeople = table.maxNumPeople;
-        bill = table.bill;
-    }    
-    const possibleStatus = ['free','busy','cleaning','reserved'];
 
     const dispatch = useDispatch();
 
@@ -28,26 +21,34 @@ const Details = () => {
         const bill = formData.get('bill');
 
         const data = {
-            id: parseInt(tableId),
+            id:  parseInt(id),
             status: status,
             numPeople: numPeople,
             maxNumPeople: maxNumPeople,
             bill: bill
         };
-        console.log(data);
         dispatch(requestUpdateDetails(data));
+        dispatch(fetchAllTableData());
     }
+    if(table){
+        status = table.status;
+        numPeople = table.numPeople;
+        maxNumPeople = table.maxNumPeople;
+        bill = table.bill;
+    }    
+    const possibleStatus = ['free','busy','cleaning','reserved'];
 
     return(
         <Container>
-            <h1 className="py-4">Table {tableId}</h1>
+            <h1 className="py-4">Table {id}</h1>
             <Form onSubmit={handleSubmit}>
                 <Form.Group className="w-50">
                     <Row className="my-2">
                         <Col sm={7}><Form.Label>Select: </Form.Label></Col>
                         <Col sm={5}>
                             <Form.Select name="status" data-bs-theme="light" size="sm" className="border-dark" defaultValue={status}>
-                                {possibleStatus.map(possibleStatus => <option key={possibleStatus} value={possibleStatus}> {possibleStatus}</option>)}
+                                {console.log(status)}
+                                {possibleStatus.map(possibleStatus => <option key={possibleStatus} value={possibleStatus} selected={status === possibleStatus}> {possibleStatus}</option>)}
                             </Form.Select>
                         </Col>
                     </Row>

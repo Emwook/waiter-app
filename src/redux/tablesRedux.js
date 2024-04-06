@@ -1,5 +1,5 @@
 //selectors
-export const getTableById = ({ tables } , tableId ) => tables.find(table => String(table.id) === String(tableId));
+export const getTableById = ({ tables } , id ) => tables.find(table => String(table.id) === String(id));
 export const getAllTables = (state => state.tables);
 
 //actions
@@ -22,14 +22,14 @@ export const changeDetails = payload => ({type: CHANGE_TABLE_DETAILS, payload});
 export const requestUpdateDetails = (data) => {
   return (dispatch) => {
     const options = {
-      method: 'POST',
+      method: 'PUT',
       headers: {
         'Content-Type': 'application/json'
       },
       body: JSON.stringify(data)
     };
-    const url = `http://localhost:3131/tables/`;
-    console.log(url);
+    const url = `http://localhost:3131/tables/${data.id}`;
+    console.log(data);
     fetch(url, options)
     .then(() => dispatch(changeDetails(data)))
   }
@@ -40,11 +40,12 @@ const tablesReducer = (statePart = [], action) => {
     case UPDATE_TABLES:
       return [...action.payload];
     case CHANGE_TABLE_DETAILS:
-      const { tableId, status, numPeople, maxNumPeople, bill } = action.payload;
+      const { id, status, numPeople, maxNumPeople, bill } = action.payload;
       return statePart.map(table => {
-        if (table.id === tableId) {
+        if (table.id === id) {
           return {
             ...table,
+            id: id !== undefined ? id : table.id,
             status: status !== undefined ? status : table.status,
             numPeople: numPeople !== undefined ? numPeople : table.numPeople,
             maxNumPeople: maxNumPeople !== undefined ? maxNumPeople : table.maxNumPeople,
