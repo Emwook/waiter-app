@@ -19,7 +19,7 @@ export const fetchAllTableData = () => {
 
 export const changeDetails = payload => ({type: CHANGE_TABLE_DETAILS, payload});
 export const requestUpdateDetails = (data) => {
-  return (dispatch) => {
+  return async (dispatch) => {
     const options = {
       method: 'PUT',
       headers: {

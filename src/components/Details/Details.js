@@ -1,9 +1,11 @@
-import { Form, Container, Row, Col, Button } from "react-bootstrap";
+import { Form, Container, Row, Col, Button, Spinner } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router";
+import { useNavigate } from "react-router-dom";
 import {  getTableById } from "../../redux/tablesRedux";
 import FormInput from "../FormInput/FormInput.js";
-import { requestUpdateDetails, fetchAllTableData } from "../../redux/tablesRedux";
+import { requestUpdateDetails } from "../../redux/tablesRedux";
+import { useState } from "react";
 
 // > to add min/max range for people and maxPeople, 
 // > to add routing back to homepage on submit 
@@ -11,8 +13,10 @@ import { requestUpdateDetails, fetchAllTableData } from "../../redux/tablesRedux
 
 const Details = () => {
     const { id } = useParams();
+    const navigate = useNavigate();
     const table = useSelector(state => getTableById(state, id));
     let tableStatus, numPeople, maxNumPeople, bill;
+    const [loading, setLoading] = useState(false);
 
     if(table){
         tableStatus = table.status;
@@ -25,8 +29,9 @@ const Details = () => {
 
     const dispatch = useDispatch();
 
-    const handleSubmit = e => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
+        setLoading(true);
         const formData = new FormData(e.target);
         const status = formData.get('status'); 
         const numPeople = formData.get('numPeople'); 
@@ -46,13 +51,23 @@ const Details = () => {
         if(status !== previousStatus && (status === 'cleaning' || status === 'free')){
             data.numPeople = 0;
         }
-        dispatch(requestUpdateDetails(data));
-        dispatch(fetchAllTableData());
+        
+        try {
+            await dispatch(requestUpdateDetails(data));
+            navigate('/'); //change it so it actually happens after reload
+        } finally {
+            setLoading(false);
+        }
     }
 
-    return(
+   
+    return (
         <Container>
             <h1 className="py-4">Table {id}</h1>
+            {/* condition it so its only when its loading */}
+            <Spinner animation="border" role="status">
+                <span className="visually-hidden">Loading...</span>
+            </Spinner>
             <Form onSubmit={handleSubmit}>
                 <Form.Group className="w-50">
                     <Row className="my-2">
