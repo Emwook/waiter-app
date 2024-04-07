@@ -7,7 +7,6 @@ const createActionName = actionName => `app/tables/${actionName}`;
 const UPDATE_TABLES = createActionName('UPDATE_TABLES');
 const CHANGE_TABLE_DETAILS = createActionName('CHANGE_TABLE_DETAILS');
 
-
 //action creators
 export const updateTables = payload => ({ type: UPDATE_TABLES, payload });
 export const fetchAllTableData = () => {
@@ -29,7 +28,6 @@ export const requestUpdateDetails = (data) => {
       body: JSON.stringify(data)
     };
     const url = `http://localhost:3131/tables/${data.id}`;
-    console.log(data);
     fetch(url, options)
     .then(() => dispatch(changeDetails(data)))
   }

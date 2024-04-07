@@ -6,7 +6,7 @@ const Home = () => {
     const tables = useSelector(state => getAllTables(state));
 
     return(
-        <ul>
+        <ul className="mt-5">
             {tables.map(table => <TableBar key={table.id} id={table.id} status={table.status}></TableBar>)}
         </ul>
     );
