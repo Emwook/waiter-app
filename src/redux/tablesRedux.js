@@ -19,19 +19,22 @@ export const fetchAllTableData = () => {
 
 export const changeDetails = payload => ({type: CHANGE_TABLE_DETAILS, payload});
 export const requestUpdateDetails = (data) => {
-  return async (dispatch) => {
+  return (dispatch) => {
+    
     const options = {
-      method: 'PUT',
+      method: 'PATCH',
       headers: {
         'Content-Type': 'application/json'
       },
       body: JSON.stringify(data)
     };
+
     const url = `http://localhost:3131/tables/${data.id}`;
     fetch(url, options)
-    .then(() => dispatch(changeDetails(data)))
-  }
-}
+      .then(() => dispatch(changeDetails(data)));
+  };
+};
+
 
 const tablesReducer = (statePart = [], action) => {
   switch(action.type) {
@@ -43,7 +46,6 @@ const tablesReducer = (statePart = [], action) => {
         if (table.id === id) {
           return {
             ...table,
-            id: id !== undefined ? id : table.id,
             status: status !== undefined ? status : table.status,
             numPeople: numPeople !== undefined ? numPeople : table.numPeople,
             maxNumPeople: maxNumPeople !== undefined ? maxNumPeople : table.maxNumPeople,

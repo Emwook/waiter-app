@@ -7,7 +7,12 @@ const Home = () => {
 
     return(
         <ul className="mt-5">
-            {tables.map(table => <TableBar key={table.id} id={table.id} status={table.status}></TableBar>)}
+            {tables.map(table => 
+            <TableBar 
+                key={table.id}
+                id={table.id}
+                status={table.status}
+            />)}
         </ul>
     );
 }
