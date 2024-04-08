@@ -7,9 +7,9 @@ const BillInput = (props) => {
     return (
         <Form.Group className="w-50" >
             <Row className="my-2">
-                <Col sm={6}><Form.Label>Bill: </Form.Label></Col>
-                <Col sm={1}><span>$</span></Col>
-                <FormInput name="bill" id="bill" defaultValue={bill ? bill : 0} width={3}/>
+                <Col xs={2}><Form.Label>Bill: </Form.Label></Col>
+                <Col xs={1}><span className="px-2 fs-5 text-center lead">$</span></Col>
+                <FormInput name="bill" id="bill" defaultValue={bill ? bill : 0}/>
             </Row>
         </Form.Group>
     )

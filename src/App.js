@@ -23,6 +23,7 @@ const App = () => {
         <Routes>
             <Route path="/*" element={<Home/>}/>
             {ids.map(id => <Route
+              key={id}
               path={`/table/${id}`}
               element={<Details id={id}/>}
             /> )}

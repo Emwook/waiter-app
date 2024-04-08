@@ -25,7 +25,6 @@ const Details = ({id}) => {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-
         const formData = new FormData(e.target);
         const data = {};
 
@@ -35,7 +34,10 @@ const Details = ({id}) => {
 
         data.id = parseInt(id);
 
-        if(data.maxNumPeople < data.numPeople){
+        if((Number(data.maxNumPeople) < Number(data.numPeople))
+            || (Number(data.maxNumPeople) < Number(numPeople))
+            || (Number(maxNumPeople) < Number(data.numPeople)))
+            {
             data.numPeople = data.maxNumPeople;
         }
 
@@ -54,12 +56,6 @@ const Details = ({id}) => {
     return (
         <Container>
             <h1 className="py-4">Table {id}</h1>
-            {/* condition it so its only when its loading */}
-            {/*
-            <Spinner animation="border" role="status">
-                <span className="visually-hidden">Loading...</span>
-            </Spinner>
-            */}
             <Form onSubmit={handleSubmit}>
                 <StatusInput id={id} tableStatus={tableStatus}/>
                 <PoepleInput id ={id} numPeople={numPeople} maxNumPeople={maxNumPeople}/>

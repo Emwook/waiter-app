@@ -7,10 +7,16 @@ const StatusInput = (props) => {
     return (
         <Form.Group className="w-50">
                     <Row className="my-2">
-                        <Col sm={7}><Form.Label>Select: </Form.Label></Col>
-                        <Col sm={5}>
+                        <Col xs={3} md={3} lg={3}><Form.Label>Select: </Form.Label></Col>
+                        <Col xs={6} md={5} lg={4}>
                             <Form.Select name="status" data-bs-theme="light" size="sm" className="border-dark" defaultValue={tableStatus}>
-                                {possibleStatus.map(possibleStatus => <option key={possibleStatus} value={possibleStatus} selected={tableStatus === possibleStatus}> {possibleStatus}</option>)}
+                                {possibleStatus.map(possibleStatus => 
+                                <option 
+                                    key={possibleStatus}
+                                    value={possibleStatus} 
+                                    defaultValue={tableStatus === possibleStatus}>
+                                    {possibleStatus}
+                                </option>)}
                             </Form.Select>
                         </Col>
                     </Row>

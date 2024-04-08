@@ -17,7 +17,7 @@ const FormInput = (props) => {
     };
 
     return(
-        <Col sm={props.width}>
+        <Col xs={3} md={2}>
             <Form.Control 
                 type="string" 
                 size="sm" 
