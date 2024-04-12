@@ -8,6 +8,9 @@ export const getAllTables = (state => state.tables);
 const createActionName = actionName => `app/tables/${actionName}`;
 const UPDATE_TABLES = createActionName('UPDATE_TABLES');
 const CHANGE_TABLE_DETAILS = createActionName('CHANGE_TABLE_DETAILS');
+const REMOVE_TABLE = createActionName('REMOVE_TABLE');
+const ADD_TABLE = createActionName('ADD_TABLE');
+
 
 //action creators
 export const updateTables = payload => ({ type: UPDATE_TABLES, payload });
@@ -37,6 +40,40 @@ export const requestUpdateDetails = (data) => {
   };
 };
 
+export const removeTable = payload => ({type: REMOVE_TABLE, payload});
+export const requestTableRemove = (data) => {
+  return (dispatch) => {
+    const options = {
+      method: 'DELETE',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(data)
+    };
+
+    const url = API_URL+`/tables/${data.id}`; // was http://localhost:3131/tables/${data.id}
+    fetch(url, options)
+      .then(() => dispatch(removeTable(data)));
+  };
+};
+
+export const addTable = payload => ({type: ADD_TABLE, payload});
+export const requestTableAdd = (data) => {
+  return (dispatch) => {
+    const options = {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(data)
+    };
+
+    const url = API_URL+`/tables`; // was http://localhost:3131/tables/${data.id}
+    fetch(url, options)
+      .then(() => dispatch(addTable(data)));
+  };
+};
+
 
 const tablesReducer = (statePart = [], action) => {
   switch(action.type) {
@@ -56,6 +93,10 @@ const tablesReducer = (statePart = [], action) => {
         }
         return table;
       });
+    case REMOVE_TABLE:
+      return statePart.filter(table => table.id !== action.payload.id);
+    case ADD_TABLE:
+      return [...statePart, action.payload];
     default:
       return statePart;
   }

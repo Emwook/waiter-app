@@ -14,12 +14,12 @@ const Home = () => {
                 <span className="visually-hidden">Loading...</span>
             </Spinner>
         </div>)}
-        <ul className="mt-5 px-3">
+        <ul className="mt-5 px-3 list-unstyled">
             {tables.map(table => 
             <TableBar
+                home={true}
                 key={table.id}
-                id={table.id}
-                status={table.status}
+                table={table}
             />)}
         </ul>
         </>

@@ -8,11 +8,11 @@
       "bill": "25"
     },
     {
-      "status": "cleaning",
-      "bill": "0",
       "id": 2,
+      "status": "cleaning",
       "numPeople": "0",
-      "maxNumPeople": "3"
+      "maxNumPeople": "1",
+      "bill": "0"
     },
     {
       "id": 3,
@@ -34,6 +34,13 @@
       "id": 5,
       "numPeople": "0",
       "maxNumPeople": "3"
+    },
+    {
+      "maxNumPeople": "5",
+      "numPeople": "1",
+      "bill": 0,
+      "status": "busy",
+      "id": 6
     }
   ]
 }

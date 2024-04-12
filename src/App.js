@@ -6,6 +6,7 @@ import { Routes, Route,  } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { useEffect } from 'react';
 import { fetchAllTableData, getAllTables } from './redux/tablesRedux.js';
+import Layout from './components/Layout/Layout.js';
 
 
 const App = () => {
@@ -22,6 +23,7 @@ const App = () => {
       <Container>
         <Routes>
             <Route path="/*" element={<Home/>}/>
+            <Route path="/layout" element={<Layout/>}/>
             {ids.map(id => <Route
               key={id}
               path={`/table/${id}`}
