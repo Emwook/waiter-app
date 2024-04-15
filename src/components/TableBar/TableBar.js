@@ -26,7 +26,7 @@ const TableBar = (props) => {
                 )
                 :(
                     <Button variant="primary" className="border-light text-right ml-auto" onClick={handleDelete}>
-                        <i className="fa fa-trash"/>
+                        -
                     </Button>
                 )}
             </Col>

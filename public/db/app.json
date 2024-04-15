@@ -34,13 +34,6 @@
       "id": 5,
       "numPeople": "0",
       "maxNumPeople": "3"
-    },
-    {
-      "maxNumPeople": "5",
-      "numPeople": "1",
-      "bill": 0,
-      "status": "busy",
-      "id": 6
     }
   ]
 }
