@@ -1,1 +1,1 @@
-link: https://ff3ad63d-8dff-4870-8f64-bed2aabc2025-00-3k4n221eifbsd.picard.replit.dev/
+link: https://dc0d67f1-8591-47ba-9dfb-0d2b486930fe-00-1m4hvcfbhu6ib.riker.replit.dev/
